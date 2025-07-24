@@ -67,4 +67,27 @@ const clerkwebhook = async (req, res) => {
 
 }
 
-export { clerkwebhook };
+// Function to get credits for the user account
+const userCredits = async (req, res) => {
+    try {
+        const clerkId = req.clerkId;
+        const userData = await userModel.findOne({ clerkId: clerkId });
+
+
+        res.status(200).json({
+            success: true,
+            credits: userData.creditBalance
+        });
+
+    }
+
+    catch (error) {
+        res.status(404).json({
+            success: false,
+            message: error.message
+        });
+        console.log("Error at clerkWebHook:", error.message);
+    }
+}
+
+export { clerkwebhook, userCredits };
