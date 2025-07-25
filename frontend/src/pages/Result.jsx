@@ -2,6 +2,7 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { Link } from "react-router-dom";
 
 const Result = () => {
   const { resultImage, image } = useContext(AppContext);
@@ -38,9 +39,13 @@ const Result = () => {
         {/* Buttons */}
         {resultImage && (
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 mt-6">
-            <button className="px-8 py-2.5 text-violet-600 text-sm border border-violet-600 rounded-full hover:scale-105 transition-all duration-500 cursor-pointer">
-              Try another image
-            </button>
+            <Link to="/">
+              {" "}
+              <button className="px-8 py-2.5 text-violet-600 text-sm border border-violet-600 rounded-full hover:scale-105 transition-all duration-500 cursor-pointer">
+                Try another image
+              </button>
+            </Link>
+
             <a
               href={resultImage}
               download
