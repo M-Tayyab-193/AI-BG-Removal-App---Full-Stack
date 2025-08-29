@@ -72,7 +72,7 @@ const userCredits = async (req, res) => {
     try {
         const clerkId = req.clerkId;
         const userData = await userModel.findOne({ clerkId: clerkId });
-
+        console.log("User data found:", userData);
 
         res.status(200).json({
             success: true,
@@ -86,7 +86,7 @@ const userCredits = async (req, res) => {
             success: false,
             message: error.message
         });
-        console.log("Error at clerkWebHook:", error.message);
+        console.log("Error in loading user credits:", error.message);
     }
 }
 
