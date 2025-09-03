@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext";
 const handlePurchase = async (priceId, getToken) => {
   try {
     const token = await getToken();
-
+    console.log("Token retrieved:", token);
     const response = await fetch(
       `${
         import.meta.env.VITE_API_BASE_URL
@@ -21,6 +21,7 @@ const handlePurchase = async (priceId, getToken) => {
       }
     );
     const session = await response.json();
+    console.log("Checkout session created:", session);
     window.location.href = session.url;
   } catch (error) {
     console.log("Error at handlePurchase:", error.message);
