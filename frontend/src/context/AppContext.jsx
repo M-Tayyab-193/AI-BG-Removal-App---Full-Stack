@@ -13,7 +13,6 @@ const AppContextProvider = ({ children }) => {
   const [resultImage, setResultImage] = useState(false);
   const [isCreditsLoading, setIsCreditsLoading] = useState(false);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const { getToken } = useAuth();
@@ -24,9 +23,12 @@ const AppContextProvider = ({ children }) => {
     try {
       setIsCreditsLoading(true);
       const token = await getToken();
-      const { data } = await axios.get(backendUrl + "/api/user/credits", {
-        headers: { token },
-      });
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/credits`,
+        {
+          headers: { token },
+        }
+      );
 
       if (data.success) {
         setCredits(data.credits);
@@ -54,7 +56,7 @@ const AppContextProvider = ({ children }) => {
         image && formData.append("image", image);
       }
       const { data } = await axios.post(
-        backendUrl + "/api/image/remove-bg",
+        `${import.meta.env.VITE_API_BASE_URL}/api/image/remove-bg`,
         formData,
         {
           headers: {
@@ -84,11 +86,11 @@ const AppContextProvider = ({ children }) => {
     }
   };
   const value = {
+    getToken,
     credits,
     setCredits,
     loadCredits,
     isCreditsLoading,
-    backendUrl,
     image,
     setImage,
     removeBg,

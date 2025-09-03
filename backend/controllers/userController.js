@@ -66,9 +66,8 @@ const clerkwebhook = async (req, res) => {
 const userCredits = async (req, res) => {
   try {
     const clerkId = req.clerkId;
-    console.log("Clerk ID from token:", clerkId);
+
     const userData = await userModel.findOne({ clerkId });
-    console.log("User data found:", userData);
 
     res.status(200).json({
       success: true,
