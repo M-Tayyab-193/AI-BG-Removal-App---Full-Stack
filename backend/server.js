@@ -10,11 +10,22 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ai-bg-removal-zeta.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.use("/api/payment", paymentRouter);
 
 // Middleware
 app.use(express.json());
-app.use(cors());
 
 // Connect DB
 await connectDB();
