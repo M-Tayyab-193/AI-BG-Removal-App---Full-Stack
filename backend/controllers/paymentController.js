@@ -72,7 +72,7 @@ export const handleStripeWebhook = async (req, res) => {
         const user = await userModel.findOne({ clerkId });
 
         if (user) {
-          user.credits = (user.credits || 0) + credits;
+          user.creditBalance = (user.creditBalance || 0) + credits;
           await user.save();
           console.log(`Added ${credits} credits to user ${clerkId}`);
         } else {
