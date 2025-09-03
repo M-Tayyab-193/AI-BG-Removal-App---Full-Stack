@@ -10,6 +10,8 @@ dotenv.config();
 
 const app = express();
 
+app.use("/api/payment", paymentRouter);
+
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -23,7 +25,6 @@ app.get("/", (req, res) => {
 });
 app.use("/api/user", userRouter);
 app.use("/api/image", imageRouter);
-app.use("/api/payment", paymentRouter);
 
 if (process.env.NODE_ENV !== "production") {
   const PORT = 5000 | process.env.PORT;
