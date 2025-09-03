@@ -1,8 +1,8 @@
 import Stripe from "stripe";
+import { connectDB } from "../config/mongodb.js";
 import dotenv from "dotenv";
 import userModel from "../models/userModel.js";
 dotenv.config();
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const checkout = async (req, res) => {
