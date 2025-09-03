@@ -11,6 +11,7 @@ const AppContextProvider = ({ children }) => {
   const [credits, setCredits] = useState(false);
   const [image, setImage] = useState(false);
   const [resultImage, setResultImage] = useState(false);
+  const [isCreditsLoading, setIsCreditsLoading] = useState(false);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const AppContextProvider = ({ children }) => {
 
   const loadCredits = async () => {
     try {
+      setIsCreditsLoading(true);
       const token = await getToken();
       const { data } = await axios.get(backendUrl + "/api/user/credits", {
         headers: { token },
@@ -28,11 +30,13 @@ const AppContextProvider = ({ children }) => {
 
       if (data.success) {
         setCredits(data.credits);
+        setIsCreditsLoading(false);
       }
       console.log(data.credits);
     } catch (err) {
       console.log(err);
       toast.error(err.message);
+      setIsCreditsLoading(false);
     }
   };
 
@@ -83,6 +87,7 @@ const AppContextProvider = ({ children }) => {
     credits,
     setCredits,
     loadCredits,
+    isCreditsLoading,
     backendUrl,
     image,
     setImage,

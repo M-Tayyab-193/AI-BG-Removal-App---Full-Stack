@@ -10,7 +10,7 @@ const Navbar = () => {
   const { isSignedIn, user } = useUser();
   const navigate = useNavigate();
 
-  const { credits, loadCredits } = useContext(AppContext);
+  const { credits, loadCredits, isCreditsLoading } = useContext(AppContext);
 
   useEffect(() => {
     if (isSignedIn) {
@@ -28,9 +28,15 @@ const Navbar = () => {
           <Link to="/buy">
             <button className="mr-2 flex items-center gap-2 px-4 sm:px-7 py-1.5 sm:py-2.5 bg-blue-100 rounded-full hover:scale-105 transition-all duration-500 cursor-pointer">
               <img src={assets.credit_icon} alt="" className="w-5" />
-              <p className="text-xs sm:text-sm font-medium text-gray-600">
-                Credits: {credits}
-              </p>
+
+              <div className="flex text-xs sm:text-sm font-medium text-gray-600">
+                Credits:{" "}
+                {isCreditsLoading ? (
+                  <div className="ml-2 w-4 h-4 border-t-2 border-b-2 border-t-blue-500 border-b-blue-500 rounded-full animate-spin " />
+                ) : (
+                  credits
+                )}
+              </div>
             </button>
           </Link>
 
